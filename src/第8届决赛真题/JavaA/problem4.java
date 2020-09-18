@@ -65,22 +65,21 @@ public class problem4 {
         Scanner in=new Scanner(System.in);
         int n=in.nextInt();
         HashMap<Integer,ArrayList<Integer>> map=new HashMap();
-        //HashMap<Integer,Integer> path=new HashMap();
+
         for(int i=0;i<n;i++){
             int start=in.nextInt();
             int target=in.nextInt();
             ArrayList<Integer> list1=new ArrayList();
-            //ArrayList<Integer> list2=new ArrayList();
             if(map.containsKey(start)) list1=map.get(start);
             list1.add(target);
             map.put(start,new ArrayList(list1));
-//			if(map.containsKey(target)) list2=map.get(target);
-//			list1.add(start);
-//			map.put(target,list2);
+
         }
         for(int i:map.keySet()){
             HashMap<Integer,Integer> path=new HashMap();
-            dfs(map,path,i);
+            if(dfs(map,path,i,new ArrayList<Integer>())){
+                break;
+            }
         }
         Integer[] print=res.toArray(new Integer[0]);
         Arrays.sort(print);
@@ -96,23 +95,26 @@ public class problem4 {
      * @param key
      * @return
      */
-    public static void dfs(HashMap<Integer,ArrayList<Integer>> map,HashMap<Integer,Integer> path,int key){
+    public static boolean dfs(HashMap<Integer,ArrayList<Integer>> map,HashMap<Integer,Integer> path,int key,ArrayList<Integer> t){
+        int x=path.containsKey(key)?path.get(key):0;
+        if(x>1){
+
+            res=new ArrayList(t);
+            res.remove(res.size()-1);
+            return true;
+        }
         ArrayList<Integer> temp=map.get(key);
         //要判断是否为空
-        if(temp==null) return ;
-        //经过两次的点说明在环上
-        //经过三次为程序遍历结束条件
-        if(path.containsKey(key)){
-            int c=path.get(key);
-            c++;
-            if(c==2 && !res.contains(key)) res.add(key);
-            path.put(key,c);
-            if(c==3) return ;
+        if(temp==null) return false;
 
-        }
-        else path.put(key,1);
         for(int i:temp){
-            dfs(map,path,i);
+            int c=path.containsKey(i)?path.get(i):0;
+            path.put(i,c+1);
+            t.add(i);
+            if(dfs(map,path,i,t)) return true;
+            path.put(i,c);
+            t.remove(t.size()-1);
         }
+        return false;
     }
 }
