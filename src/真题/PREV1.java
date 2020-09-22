@@ -34,6 +34,8 @@ import java.util.Scanner;
  * 3.若r==0,则最大公约数为a；否则重复1、2步
  * 最小公倍数=a*b/最大公约数；
  * 顺带一提，两个数互质=最大公约数==1；
+ *
+ *
  */
 public class PREV1 {
     public static void main(String[] args) {
