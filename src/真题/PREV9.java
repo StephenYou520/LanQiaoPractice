@@ -40,6 +40,7 @@ import java.util.Scanner;
  * 大臣J从城市4到城市5要花费135的路费。
  *
  * 思路：有n-1条高速公路，且两两相连，深度优先搜索求最大加权和。
+ * 求加权路径和可以考虑使用：Dijkstra算法和Floyd算法
  */
 public class PREV9 {
     public static int res=0;
