@@ -39,8 +39,8 @@ import java.util.Scanner;
  * 输出格式
  * 大臣J从城市4到城市5要花费135的路费。
  *
- * 思路：有n-1条高速公路，且两两相连，深度优先搜索求最大加权和。
- * 求加权路径和可以考虑使用：Dijkstra算法和Floyd算法
+ * 思路：有n-1条高速公路，且两两相连。问题本质上是求图中任意两点的最大加权距离，即多源最大路径问题。
+ * 答案：最后只能通过75%的用例，其余超时
  */
 public class PREV9 {
     public static int res=0;
@@ -67,9 +67,11 @@ public class PREV9 {
         }
 
         for(Integer i:map.keySet()) {
-            boolean[] path=new boolean[n];
-            dfs(map, path, 0, 1);
+            boolean[] path=new boolean[n+1];
+            dfs(map, path, 0, i);
+            //System.out.println(map.get(i));
         }
+        //System.out.println(res);
         System.out.println(cost(res));
     }
 
@@ -81,20 +83,17 @@ public class PREV9 {
      * @param i
      */
     public static void dfs(HashMap<Integer, ArrayList<int[]>> map,boolean[] path,int sum,int i){
-        if(path[i] || !map.containsKey(i)){
-            res=Math.max(sum,res);
-            return ;
-        }
-        else{
+            path[i]=true;
             ArrayList<int[]> t=map.get(i);
             for(int[] lt:t){
-                path[lt[0]]=true;
+                //System.out.println(lt);
+                if(path[lt[0]]) continue;
                 sum+=lt[1];
+                res=Math.max(sum,res);
                 dfs(map,path,sum,lt[0]);
-                path[lt[0]]=false;
                 sum-=lt[1];
             }
-        }
+            path[i]=false;
     }
 
     /***
@@ -104,7 +103,7 @@ public class PREV9 {
      */
     public static int cost(int x){
         int res=0;
-        for(int i=0;i<x;i++) res+=i+10;
+        for(int i=1;i<=x;i++) res+=i+10;
         return res;
     }
 }
