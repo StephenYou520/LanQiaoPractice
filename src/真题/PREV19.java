@@ -57,6 +57,7 @@ public class PREV19 {
         if(dfs(graph,map,x+1,y,x,y,0)) r=true;
         if(dfs(graph,map,x,y+1,x,y,0)) r=true;
         if(dfs(graph,map,x,y-1,x,y,0)) r=true;
+        //System.out.println(r);
         if(r) System.out.println(res);
         else System.out.println(-1);
     }

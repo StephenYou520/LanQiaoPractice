@@ -47,18 +47,20 @@ public class PREV9 {
     public static void main(String[] args) {
         Scanner in=new Scanner(System.in);
         int n=in.nextInt();
-        HashMap<Integer, ArrayList<int[]>> map=new HashMap<>();
+        HashMap<Integer, ArrayList<int[]>> map=new HashMap<Integer, ArrayList<int[]>>();
         for(int i=0;i<n-1;i++){
             int a=in.nextInt();
             int b=in.nextInt();
             int c=in.nextInt();
-            ArrayList<int[]> t1=map.getOrDefault(a,new ArrayList<int[]>());
+            ArrayList<int[]> t1=new ArrayList<int[]>();
+                    //map.getOrDefault(a,new ArrayList<int[]>());
             int[] tx1=new int[2];
             tx1[0]=b;
             tx1[1]=c;
             t1.add(tx1);
             map.put(a,t1);
-            ArrayList<int[]> t2=map.getOrDefault(b,new ArrayList<int[]>());
+            ArrayList<int[]> t2=new ArrayList<int[]>();
+                    //map.getOrDefault(b,new ArrayList<int[]>());
             int[] tx2=new int[2];
             tx2[0]=a;
             tx2[1]=c;
